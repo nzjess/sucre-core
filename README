@@ -1,0 +1,40 @@
+
+Introduction
+-------------
+
+Sucre core provides the core set of Sucre modules.  It also includes common utilities that are depended on by other, separately distributed modules.
+The core modules are generally those that have no non-core Java dependencies.  
+
+Sucre core provides the following:
+
+ - Reflect
+    - Makes reflection a little more sugary for Java Bean-style classes.
+    
+ - Coercer
+    - Give your simple types a gentle nudge this way or that when they need it.
+     
+ - Attributes
+    - In the style of java.util.Properties, but a bit sweeter.  Combines Reflect and Coercer and adds a nice proxying layer.
+ 
+
+Usage
+--------------
+
+There are plenty of usage examples in the code under src/test.
+
+
+Building
+--------------
+
+Uses Maven. From the root of the project dir, type:
+ 
+$ mvn install
+
+
+Maven Artifact
+--------------
+
+<dependency>
+    <groupId>org.ubercraft.sucre</groupId>
+    <artifactId>sucre-core</artifactId>
+</dependency>
