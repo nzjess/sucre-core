@@ -20,7 +20,73 @@ Sucre core provides the following:
 Usage
 --------------
 
-There are plenty of usage examples in the code under src/test.
+There are plenty of usage examples in the code under src/test.  Like this:
+
+
+import static org.junit.Assert.assertEquals;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Test;
+
+public class AttributesTest {
+
+    private static interface TestMe {
+
+        String getHello();
+
+        String getNumber();
+
+        @AttributeKey("my.key")
+        String getSomeString();
+
+        @AttributeDefaultInt(42)
+        int getTheAnswer();
+
+        void setTheAnswer(int answer);
+
+        long getNotFussy();
+
+        void setNotFussy(String string);
+    }
+
+    @Test
+    public void testMe() {
+        // start with a map
+        Map<Object, Object> values = new HashMap<Object, Object>();
+        values.put("hello", "World");
+        values.put("number", 12345);
+        values.put("my.key", "my.value");
+        values.put("notFussy", (byte)3);
+
+        // test me
+        TestMe me = Attributes.backedBy(values).proxy(TestMe.class);
+
+        // hello world
+        assertEquals("World", me.getHello());
+
+        // coerce int to String
+        assertEquals("12345", me.getNumber());
+
+        // use a non-default key
+        assertEquals("my.value", me.getSomeString());
+
+        // use a default value
+        assertEquals(42, me.getTheAnswer());
+
+        // modify a value
+        me.setTheAnswer(101);
+        assertEquals(101, me.getTheAnswer());
+
+        // not fussy
+        assertEquals(3L, me.getNotFussy());
+
+        // still not
+        me.setNotFussy("4");
+        assertEquals(4L, me.getNotFussy());
+    }
+}
 
 
 Building
